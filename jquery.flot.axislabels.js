@@ -7,19 +7,7 @@ Auhtor: Akshay Sharma
 Updates: Changes for HTML labels and alignment
 
 ****IMPORTANT****
-CSS to be used
-#yaxisLabel{
-	transform: rotate(-90deg);
-    -o-transform: rotate(-90deg);
-    -ms-transform: rotate(-90deg);
-    -moz-transform: rotate(-90deg);
-    -webkit-transform:  rotate(-90deg);
-    transform-origin: 0 0;
-    -o-transform-origin: 0 0;
-    -ms-transform-origin: 0 0;
-    -moz-transform-origin: 0 0;
-    -webkit-transform-origin: 0 0;
-}
+CSS to be used - Use the styles.css in this repository.
 
 
 
