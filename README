@@ -13,7 +13,7 @@ $(function () {
         },
         yaxis: {
             axisLabel: 'bar',
-            axisLabelUseCanvas: true
+            axisLabelUseCanvas: false
         }
     };
 
@@ -38,7 +38,7 @@ there are four options:
         y-axis text will be vertical. Canvas text is not be supported in older
         browsers.
     * False - HTML text:
-        Can be styled with CSS. Text is always horizontal (even for y axis)
+        Can be styled with CSS. Text is always horizontal (even for y axis). Follow style.css for Y-axis labels.
 
 The following two options can only be used if axisLabelUseCanvas is enabled:
 
@@ -48,7 +48,3 @@ The following two options can only be used if axisLabelUseCanvas is enabled:
 * axisLabelFontFamily:
     the font family of the font (default: sans-serif)
 
-FUTURE DIRECTIONS
-
-* Add support for secondary axes (x2axis, y2axis, etc.)
-* Support a custom rotation angle for the labels
