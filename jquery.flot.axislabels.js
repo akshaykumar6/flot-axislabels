@@ -2,6 +2,27 @@
 CAxis Labels Plugin for flot. :P
 Copyright (c) 2010 Xuan Luo
 
+
+Auhtor: Akshay Sharma
+Updates: Changes for HTML labels and alignment
+
+****IMPORTANT****
+CSS to be used
+#yaxisLabel{
+	transform: rotate(-90deg);
+    -o-transform: rotate(-90deg);
+    -ms-transform: rotate(-90deg);
+    -moz-transform: rotate(-90deg);
+    -webkit-transform:  rotate(-90deg);
+    transform-origin: 0 0;
+    -o-transform-origin: 0 0;
+    -ms-transform-origin: 0 0;
+    -moz-transform-origin: 0 0;
+    -webkit-transform-origin: 0 0;
+}
+
+
+
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
 "Software"), to deal in the Software without restriction, including
@@ -22,8 +43,8 @@ OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
  */
-(function ($) {
-    var options = { };
+(function($) {
+    var options = {};
 
     function init(plot) {
         // This is kind of a hack. There are no hooks in Flot between
@@ -35,12 +56,12 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
         // the first time to get the tick measurements, so that we can change
         // them, and then have it draw it again.
         var secondPass = false;
-        plot.hooks.draw.push(function (plot, ctx) {
+        plot.hooks.draw.push(function(plot, ctx) {
             if (!secondPass) {
                 // MEASURE AND SET OPTIONS
                 $.each(plot.getAxes(), function(axisName, axis) {
                     var opts = axis.options // Flot 0.7
-                        || plot.getOptions()[axisName]; // Flot 0.6
+                    || plot.getOptions()[axisName]; // Flot 0.6
                     if (!opts || !opts.axisLabel)
                         return;
 
@@ -85,7 +106,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                 // DRAW
                 $.each(plot.getAxes(), function(axisName, axis) {
                     var opts = axis.options // Flot 0.7
-                        || plot.getOptions()[axisName]; // Flot 0.6
+                    || plot.getOptions()[axisName]; // Flot 0.6
                     if (!opts || !opts.axisLabel)
                         return;
 
@@ -94,32 +115,34 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                         var ctx = plot.getCanvas().getContext('2d');
                         ctx.save();
                         ctx.font = opts.axisLabelFontSizePixels + 'px ' +
-                                opts.axisLabelFontFamily;
+                            opts.axisLabelFontFamily;
                         var width = ctx.measureText(opts.axisLabel).width;
                         var height = opts.axisLabelFontSizePixels;
                         var x, y;
                         if (axisName.charAt(0) == 'x') {
-                            x = plot.getPlotOffset().left + plot.width()/2 - width/2;
+                            x = plot.getPlotOffset().left + plot.width() / 2 - width / 2;
                             y = plot.getCanvas().height;
                         } else {
                             x = height * 0.72;
-                            y = plot.getPlotOffset().top + plot.height()/2 - width/2;
+                            y = plot.getPlotOffset().top + plot.height() / 2 - width / 2;
                         }
                         ctx.translate(x, y);
-                        ctx.rotate((axisName.charAt(0) == 'x') ? 0 : -Math.PI/2);
+                        ctx.rotate((axisName.charAt(0) == 'x') ? 0 : -Math.PI / 2);
                         ctx.fillText(opts.axisLabel, 0, 0);
                         ctx.restore();
 
                     } else {
                         // HTML text
                         plot.getPlaceholder().find('#' + axisName + 'Label').remove();
-                        var elem = $('<div id="' + axisName + 'Label" " class="axisLabels" style="position:absolute;">' + opts.axisLabel + '</div>');
+                        var elem = $('<div id="' + axisName + 'Label" class="axisLabels" style="position:absolute; width:100%; text-align: center">' + opts.axisLabel + '</div>');
                         if (axisName.charAt(0) == 'x') {
-                            elem.css('left', plot.getPlotOffset().left + plot.width()/2 - elem.outerWidth()/2 + 'px');
-                            elem.css('bottom', '0px');
-                        } else {
-                            elem.css('top', plot.getPlotOffset().top + plot.height()/2 - elem.outerHeight()/2 + 'px');
+                            //elem.css('left', plot.getPlotOffset().left + plot.width() / 2 - elem.outerWidth() / 2 + 'px');
                             elem.css('left', '0px');
+                            elem.css('bottom', '-35px');
+                        } else {
+                            // elem.css('top', plot.getPlotOffset().top + plot.height() / 2 - elem.outerHeight() / 2 + 'px');
+                            elem.css('top', plot.height() + 20 + 'px');
+                            elem.css('left', '-35px');
                         }
                         plot.getPlaceholder().append(elem);
                     }
